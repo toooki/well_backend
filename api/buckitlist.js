@@ -2,18 +2,6 @@ const express = require('express');
 const bucketlistRouter = express.Router();
 const pool = require('../function/db');
 
-// // MySQL 연결 설정
-// const pool = mysql.createPool({
-//   host: '127.0.0.1',
-//   user: 'root', // MySQL 사용자 이름
-//   password: '1234', // MySQL 비밀번호
-//   database: 'welldyingdb', // 사용할 데이터베이스 이름
-//   port: 3306,
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0
-// });
-
 // POST 라우트 작성
 bucketlistRouter.post('/savebuckitlist', async (req, res) => {
   const { bucketList, username } = req.body; // 사용자 이름 받아오기

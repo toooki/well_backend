@@ -6,17 +6,6 @@ const path = require('path');
 const Funeral = express.Router();
 
 const pool = require('../function/db');
-// // MySQL 연결 설정
-// const pool = mysql.createPool({
-//   host: '127.0.0.1',
-//   user: 'root',
-//   password: '1234',
-//   database: 'welldyingdb',
-//   port: 3306,
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0
-// });
 
 // Multer 설정
 const storage = multer.memoryStorage(); // 메모리 스토리지 사용 (파일을 메모리에 저장)

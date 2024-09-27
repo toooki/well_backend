@@ -19,7 +19,7 @@ memory_locker.post('/upload', upload.single('file'), async (req, res) => {
     return res.status(400).send({ message: 'No file uploaded' });
   }
 
-  const filename = Date.now() + '-' + file.originalname; // Generate a unique filename
+  const filename = Date.now() + '-' + file.originalname;
   const fileType = file.mimetype.startsWith('image') ? 'image' : 'video';
 
   const sql = 'INSERT INTO memory_locker (username, filename, file, type) VALUES (?, ?, ?, ?)';
