@@ -1,3 +1,12 @@
+/**
+ * 회원가입, 회원탈퇴, 로그인 창의 벡엔드
+ * 주요기능
+ * 1. 아이디 중복 확인
+ * 2. 인증번호 생성 및 전송
+ * 3. 회원가입시 유저정보를 데이터베이스에 저장
+ * 4. 로그인을 수행
+ * 5. 회원탈퇴시 유저정보를 데이터베이스에서 삭제
+ */
 const express = require('express');
 const signup = express.Router();
 const bodyParser = require('body-parser');
@@ -34,6 +43,9 @@ const authenticationhandler = async (phoneNumber, code) => {
   }
 };
 
+/**
+ * 1의 기능을 수행하기 위한 코드 사용자가 작성한 유저명이 데이터베이스에 있는지 확인하고 그 결과를 results에 담아 보내준다
+ */
 signup.post('/check-username', async (req, res) => {
   const { username } = req.body;
 
@@ -52,6 +64,9 @@ signup.post('/check-username', async (req, res) => {
   }
 });
 
+/**
+ * 2의 기능을 수행하기 위한 코드 사용자가 인증번호 요청을 누르면 랜덤으로 인증번호를 생성해(1000~9999까지) 사용자에게 전송한다
+ */
 signup.post('/send', async (req, res) => {
   try {
     const { phoneNumber } = req.body;
@@ -65,6 +80,9 @@ signup.post('/send', async (req, res) => {
   }
 });
 
+/**
+ * 3의 기능을 수행하기 위한 코드 사용자가 회원가입을 누르면 인증번호를 확인하고 인증번호가 잘 되어있다면 사용자의 정보를 데이터베이스에 저장함
+ */
 signup.post('/verify-code', async (req, res) => {
   const { username, password, phoneNumber, authCode } = req.body;
 
@@ -84,6 +102,9 @@ signup.post('/verify-code', async (req, res) => {
   }
 });
 
+/**
+ * 4의 기능을 수행하기 위한 코드 사용자가 로그인을 누르면 사용자가 입력한 아이디와 비밀번호가 데이터베이스에 있는지 확인하고 그 결과를 받아서 프런트앤드에 보내줌
+ */
 signup.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -108,6 +129,9 @@ signup.post('/login', async (req, res) => {
   }
 });
 
+/**
+ * 5의 기능을 수행하기 위한 코드 사용자가 회원탈퇴를 누르면 사용자가 작성한 아이디와 비밀번호가 일치하는지 확인하고 일치한다면 데이터베이스에서 사용자의 데이터를 삭제함
+ */
 signup.post('/signout', async (req, res) => {
   const { requestId, password } = req.body;
 

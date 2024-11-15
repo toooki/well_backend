@@ -1,8 +1,16 @@
+/**
+ * 메인메뉴중 연락처 정리 메뉴창의 벡엔드
+ * 주요기능
+ * 1. 처음 창이 로딩될때 데이터베이스를 검색해 유저가 저장한 데이터가 있다면 화면에 보여줌
+ * 2. 유저가 연락처를 작성하고 체크(저장하기)를 누르면 데이터베이스에 저장함
+ */
 const express = require('express');
 const phonenumber = express.Router();
 const pool = require('../function/db');
 
-// POST 라우트 작성
+/**
+ * 2의 기능을 수행하기 위한 코드 유저가 저장하기를 누르면 유저가 작성한 정보를 이름은 phonename에 전화번호는 phonenumberList에 받아와 기존의 데이터베이스에 있던 값은 삭제하고 받아온 데이터를 삽입한다
+ */
 phonenumber.post('/savephonenumber', async (req, res) => {
   const { phonename, phonenumberList, username } = req.body; // 사용자 이름 받아오기
 
@@ -32,6 +40,9 @@ phonenumber.post('/savephonenumber', async (req, res) => {
   }
 });
 
+/**
+ * 1의 기능을 수행하기 위한 코드 유저가 처음 창을 로딩할 때 유저의 데이터가 있다면 그 데이터를 rows에 저장해 프런트엔드로 전송함
+ */
 phonenumber.get('/phonenumberuser', async (req, res) => {
   const { username } = req.query;
 

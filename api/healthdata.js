@@ -1,9 +1,17 @@
+/**
+ * 메인메뉴중 건강체크 메뉴창의 벡엔드
+ * 주요기능
+ * 1. 처음 창이 로딩될때 데이터베이스를 검색해 유저의 정보가 있다면 건강체크 창을 건너뛰고 바로 결과를 보여줌
+ * 2. 유저가 건강체크를 하고 저장 버튼을 누르면 데이터베이스에 저장하고 결과창을 보여줌
+ * 3. 다시설문 버튼을 누르면 결과창에서 건강체크 창으로 이동
+ */
 const express = require('express');
-const healthdataRouter = express.Router();
-const mysql = require('mysql2/promise');
+const healthdataRouter = express.Router(); //server.js에 라우팅 하기 위한 설정
+const pool = require('../function/db'); //연결할 db
 
-const pool = require('../function/db');
-
+/**
+ * 2번기능을 수행하기 위한 코드 사용자와 건강체크 결과를 가져온 다음 데이터베이스에 저장된 값을 삭제한다 그 후 가져온 값들을 데이터베이스에 삽입한다
+ */
 // POST 라우트 작성
 healthdataRouter.post('/savehealthdata', async (req, res) => {
   const { healthchecklist, username } = req.body; // 사용자 이름 받아오기
@@ -31,6 +39,9 @@ healthdataRouter.post('/savehealthdata', async (req, res) => {
   }
 });
 
+/**
+ * 1번 기능을 수행하기 위한 코드 데이터베이스에서 유저명에 대한 값을 검색하여 rows에 저장한후 프런트앤드에 전송한다
+ */
 healthdataRouter.get('/healthdatauser', async (req, res) => {
   const { username } = req.query;
 
